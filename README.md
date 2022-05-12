@@ -29,7 +29,8 @@ python test.py --csvdir1='csvfiles/reporting_template_lossy.csv' --csvdir2='csvf
 
 
 ## Update
-20220512. Test on csv files including more sequences, the csv files are provided by Muhammad.
+
+20220512: Test on csv files including more sequences, the csv files are provided by Muhammad.
 
 
 ## TODO
