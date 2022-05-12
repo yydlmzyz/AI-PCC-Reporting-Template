@@ -18,7 +18,7 @@ https://www.mathworks.com/matlabcentral/fileexchange/27798-bjontegaard-metric
 ## Usages
 
 ```shell
- python demo.py --csvdir1='csvfiles/anchor.csv' --csvdir2='csvfiles/tested.csv' --xlabel='bpp' --ylabel='PSNR'
+python test.py --csvdir1='csvfiles/reporting_template_lossy.csv' --csvdir2='csvfiles/test.csv'  --xlabel='numBitsGeoEncT' --ylabel='d1T'
 ```
 
 ## Results
@@ -28,7 +28,9 @@ https://www.mathworks.com/matlabcentral/fileexchange/27798-bjontegaard-metric
 |house_vox12 |-11.1          |-10.9        |
 
 
+## Update
+20220512. Test on csv files including more sequences, the csv files are provided by Muhammad.
+
 
 ## TODO
 
-1. Test more dataset.
