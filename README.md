@@ -18,7 +18,9 @@ https://www.mathworks.com/matlabcentral/fileexchange/27798-bjontegaard-metric
 ## Usages
 
 ```shell
-python test.py --csvdir1='csvfiles/reporting_template_lossy.csv' --csvdir2='csvfiles/test.csv' --xlabel='bppGeo' --ylabel='d1T'
+python test.py --csvdir1='csvfiles/reporting_template_lossy.csv' --csvdir2='csvfiles/test.csv' --csvdir_stats='csvfiles/reporting_template_stats.csv' --xlabel='bppGeo' --ylabel='d1T'
+
+python test_mean.py --category='solid' --csvdir1='csvfiles/reporting_template_lossy.csv' --csvdir2='csvfiles/test.csv' --csvdir_stats='csvfiles/reporting_template_stats.csv' --xlabel='bppGeo' --ylabel='d1T'
 ```
 
 ## Results
@@ -30,7 +32,8 @@ python test.py --csvdir1='csvfiles/reporting_template_lossy.csv' --csvdir2='csvf
 
 ## Update
 
-20220602: Bitrate on figure x-axis instead of total bits; summary for the average results
+20220602: Bitrate on figure x-axis instead of total bits; summary for the average results.
+
 20220512: Test on csv files including more sequences, the csv files are provided by Muhammad.
 
 

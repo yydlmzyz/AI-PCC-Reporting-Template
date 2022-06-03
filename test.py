@@ -13,9 +13,21 @@ from utils import split_dataframe, mean_dataframe
 from plot import plot_curves
 
 
-def update(df):
-    """calculate bpp according to the raw data
+def update(df, df_stats):
+    """calculate bpp according to the raw data (df) and the stats data
     """
+    index_name='sequence'
+    if df.index.name != index_name: 
+        df.set_index(index_name, inplace=True)
+    if df_stats.index.name != index_name: 
+        df_stats.set_index(index_name, inplace=True)
+    # add meta information like numInputPoints, PeakValue, etc.
+    for stats_idx in  df_stats.columns:
+        if stats_idx not in df.keys():
+            print('add stats index', stats_idx)
+            df[stats_idx] = [df_stats.loc[idx][stats_idx] for idx in df.index]
+
+    # calculate bpp
     if 'bppGeo' not in df.keys() and 'numBitsGeoEncT' in df.keys():
         bppGeo = df['numBitsGeoEncT']/df['numInputPointsT']
         bppGeo = bppGeo.round(8)
@@ -69,19 +81,22 @@ if __name__ == "__main__":
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument("--csvdir1", type=str, default='csvfiles/reporting_template_lossy.csv')
     parser.add_argument("--csvdir2", type=str, default='csvfiles/test.csv')
+    parser.add_argument("--csvdir_stats", type=str, default='csvfiles/reporting_template_stats.csv')
     parser.add_argument("--xlabel", type=str, default='bppGeo')
     parser.add_argument("--ylabel", type=str, default='d1T')
     args = parser.parse_args()
     print('args:\n', args)
 
     # 1. update csvfile: (calculate bpp)
+    df_stats = pd.read_csv(args.csvdir_stats)
+
     df1 = pd.read_csv(args.csvdir1)
-    df1 = update(df1)
-    df1.to_csv(args.csvdir1, index=False)
+    df1 = update(df1, df_stats)
+    df1.to_csv(args.csvdir1, index=True)
 
     df2 = pd.read_csv(args.csvdir2)
-    df2 = update(df2)
-    df2.to_csv(args.csvdir2, index=False)
+    df2 = update(df2, df_stats)
+    df2.to_csv(args.csvdir2, index=True)
 
     # 2. split concatenated frames to single frame for comparisons
     df1_set = split_dataframe(df1)
@@ -96,21 +111,5 @@ if __name__ == "__main__":
         df2_one = df2_set[seqs_name]
         # print(df1_one, '\n', df2_one)
         compare(df1_one, df2_one, args.xlabel, args.ylabel, seqs_name)
-
-    # 4. average results
-    sequence_list = ['queen_0200', 'soldier_vox10_0690', 'dancer_vox11_00000001', 'thaidancer_viewdep_vox12']
-    # scant_list = ['ford_02_q1mm', 'ford_03_q1mm']
-
-    df1_list = [df1_set[seqs_name] for seqs_name in sequence_list]
-    df2_list = [df2_set[seqs_name] for seqs_name in sequence_list]
-
-    df1_mean = mean_dataframe(df1_list)
-    df2_mean = mean_dataframe(df2_list)
-    print('df1_mean\n', df1_mean)
-    print('df2_mean\n', df2_mean)
-    compare(df1_one, df2_one, args.xlabel, args.ylabel, 'mean')
-
-
     
-
 
