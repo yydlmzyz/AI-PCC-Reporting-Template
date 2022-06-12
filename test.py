@@ -92,11 +92,11 @@ if __name__ == "__main__":
 
     df1 = pd.read_csv(args.csvdir1)
     df1 = update(df1, df_stats)
-    df1.to_csv(args.csvdir1, index=True)
+    # df1.to_csv(args.csvdir1, index=True)
 
     df2 = pd.read_csv(args.csvdir2)
     df2 = update(df2, df_stats)
-    df2.to_csv(args.csvdir2, index=True)
+    # df2.to_csv(args.csvdir2, index=True)
 
     # 2. split concatenated frames to single frame for comparisons
     df1_set = split_dataframe(df1)

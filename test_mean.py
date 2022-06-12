@@ -30,11 +30,11 @@ if __name__ == "__main__":
 
     df1 = pd.read_csv(args.csvdir1)
     df1 = update(df1, df_stats)
-    df1.to_csv(args.csvdir1, index=True)
+    # df1.to_csv(args.csvdir1, index=True)
 
     df2 = pd.read_csv(args.csvdir2)
     df2 = update(df2, df_stats)
-    df2.to_csv(args.csvdir2, index=True)
+    # df2.to_csv(args.csvdir2, index=True)
 
     # 2. split concatenated frames to single frame for comparisons
     df1_set = split_dataframe(df1)
@@ -44,7 +44,8 @@ if __name__ == "__main__":
     solid_list = ['queen_0200', 
                 'soldier_vox10_0690', 
                 'dancer_vox11_00000001', 
-                'thaidancer_viewdep_vox12']
+                'thaidancer_viewdep_vox12',
+                'facade_00064_vox11']
 
     dense_list = ['soldier_viewdep_vox12', 
                 'boxer_viewdep_vox12', 
@@ -76,7 +77,7 @@ if __name__ == "__main__":
     if args.category=='solid': sequence_list = solid_list
     if args.category=='dense': sequence_list = dense_list
     if args.category=='sparse': sequence_list = sparse_list
-    if args.category=='m_fused': sequence_list = am_fused_list
+    if args.category=='am_fused': sequence_list = am_fused_list
     if args.category=='am_frame': sequence_list = am_frame_list
 
     sequence_list = [seqs_name for seqs_name in sequence_list if seqs_name in df2_set.keys()]
